@@ -14,7 +14,7 @@ import {
 import { ThemeProvider } from "styled-components";
 
 import theme from "./src/Global/theme";
-import { Home } from "./src/screens/Home";
+import { CarDetails } from "./src/screens/CarDetails";
 import AppLoading from "expo-app-loading";
 
 export default function App() {
@@ -31,7 +31,7 @@ const [fontsLoaded] = useFonts({
   }
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <CarDetails />
     </ThemeProvider>
   )
 }

@@ -11,10 +11,11 @@ import {
     Header,
 	TotalCars,
 	HeaderContent,
+	CarList,
 } from './styles';
 
 export function Home() {
-	const carData1 = {
+	const carData = {
 		brand: 'audi',
     name: 'RS 5 Coupé',
     rent: {
@@ -24,16 +25,7 @@ export function Home() {
     thumnail: 'https://production.autoforce.com/uploads/version/profile_image/3188/model_main_comprar-tiptronic_87272c1ff1.png'
 		
 	}
-	const carData2 = {
-		brand: 'Porsche',
-    name: 'Panamera',
-    rent: {
-        period: 'ao dia',
-        price: 340,
-    },
-    thumnail: 'http://assets.stickpng.com/images/580b585b2edbce24c47b2cae.png'
-		
-	}
+
 	return (
 		<Container>
 			<StatusBar 
@@ -52,8 +44,13 @@ export function Home() {
 					</TotalCars>
 				</HeaderContent>
 			</Header>
-			<Car data={carData1}/>
-			<Car data={carData2}/>
+
+			<CarList 
+				data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+				keyExtractor={item => String(item)}
+				renderItem={({ item }) => <Car data={carData}/>}
+			/>
+			
 		</Container>
 	);
 }
