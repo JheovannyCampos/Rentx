@@ -21,7 +21,7 @@ import { Calendar } from '../../components/Calendar';
 import { useNavigation } from '@react-navigation/native';
 
 export function Scheduling() {
-    const navigation = useNavigation();
+    const navigation:any = useNavigation();
 
     const theme = useTheme();
 

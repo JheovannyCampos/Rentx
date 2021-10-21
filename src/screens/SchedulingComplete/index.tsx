@@ -15,7 +15,7 @@ import { ConfirmButton } from '../../components/ConfirmButton';
 import { useNavigation } from '@react-navigation/native';
 
 export function SchedulingComplete(){
-    const navigation = useNavigation();
+    const navigation:any = useNavigation();
 	
     function handleConfirm(){
 		navigation.navigate("Home");

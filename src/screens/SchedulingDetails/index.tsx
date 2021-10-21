@@ -44,7 +44,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 export function SchedulingDetails() {
-	const navigation = useNavigation();
+	const navigation:any = useNavigation();
 
     function handleConfirmRental(){
 		navigation.navigate("SchedulingComplete");
