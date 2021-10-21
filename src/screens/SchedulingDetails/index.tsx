@@ -40,9 +40,15 @@ import {
 } from './styles';
 import {Feather} from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useNavigation } from '@react-navigation/native';
 
 
 export function SchedulingDetails() {
+	const navigation = useNavigation();
+
+    function handleConfirmRental(){
+		navigation.navigate("SchedulingComplete");
+	}
 	const theme = useTheme();
 	return (
 		<Container>
@@ -99,8 +105,8 @@ export function SchedulingDetails() {
 					/>
 					
 					<DateInfo>
-						<DateTitle>DE</DateTitle>
-						<DateValue>20/10/2021</DateValue>
+						<DateTitle>ATÉ</DateTitle>
+						<DateValue>30/10/2021</DateValue>
 					</DateInfo>
 				</RentalPeriod>
 
@@ -114,7 +120,11 @@ export function SchedulingDetails() {
 			</Content>
 
 			<Footer>
-				<Button title="Confirmar" />
+				<Button 
+					title="Alugar agora" 
+					color={theme.colors.success}
+					onPress={handleConfirmRental} 
+				/>
 			</Footer>
 
 		</Container>
