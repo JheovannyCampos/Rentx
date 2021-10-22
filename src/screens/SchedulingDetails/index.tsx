@@ -1,16 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accessory } from '../../components/Accessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 
 import { useTheme } from 'styled-components';
+import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 
-import speedSvg from '../../assets/speed.svg';
-import accelerationSvg from '../../assets/acceleration.svg';
-import forceSvg from '../../assets/force.svg';
-import gasolineSvg from '../../assets/gasoline.svg';
-import exchangeSvg from '../../assets/exchange.svg';
-import peopleSvg from '../../assets/people.svg';
 import { Button } from '../../components/Button';
 
 import {
@@ -40,11 +35,30 @@ import {
 } from './styles';
 import {Feather} from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { CarDTO } from '../../dtos/CarDTO';
+import { getPlatformDate } from '../../utils/getPlataformDate';
+import { format } from 'date-fns';
 
+interface Params {
+	car: CarDTO;
+	dates: string[];
+}
+
+interface RentalPeriod{
+	start: string;
+	end: string;
+}
 
 export function SchedulingDetails() {
+	const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>({} as RentalPeriod);
+
 	const navigation:any = useNavigation();
+	const route = useRoute();
+
+	const { car, dates } = route.params as Params;
+
+	const rentalTotal = Number(dates.length * car.rent.price)
 
     function handleConfirmRental(){
 		navigation.navigate("SchedulingComplete");
@@ -55,6 +69,13 @@ export function SchedulingDetails() {
 		navigation.goBack();
 	}
 
+	useEffect(() => {
+		setRentalPeriod({
+		  start: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+		  end: format(getPlatformDate(new Date(dates[dates.length - 1])), 'dd/MM/yyyy'),
+		});
+	  }, []);
+
 	return (
 		<Container>
 			<Header>
@@ -63,30 +84,33 @@ export function SchedulingDetails() {
 
 			<CarImages>
 				<ImageSlider 
-					imagesUrl={['https://production.autoforce.com/uploads/version/profile_image/3188/model_main_comprar-tiptronic_87272c1ff1.png']}
+					imagesUrl={car.photos}
 				/>
 			</CarImages>
 
 			<Content>
 				<Details>
 					<Description>
-						<Brand>Lambo</Brand>
-						<Name>Huracan</Name>
+						<Brand>{car.brand}</Brand>
+						<Name>{car.name}</Name>
 					</Description>
 
 					<Rent>
-						<Period>Ao Dia</Period>
-						<Price>R$ 580</Price>
+						<Period>{car.rent.period}</Period>
+						<Price>{car.rent.price}</Price>
 					</Rent>
 				</Details>
 
 				<Accessories>
-					<Accessory name="380Km/h" icon={speedSvg}/>
-					<Accessory name="3.2s" icon={accelerationSvg}/>
-					<Accessory name="800 HP" icon={forceSvg}/>
-					<Accessory name="Gasoline" icon={gasolineSvg}/>
-					<Accessory name="Auto" icon={exchangeSvg}/>
-					<Accessory name="2 pessoas" icon={peopleSvg}/>
+					{
+					car.accessories.map(accessory => (
+						<Accessory 
+							key={accessory.type}
+							name={accessory.name} 
+							icon={getAccessoryIcon(accessory.type)}
+						/>
+					))
+					}
 				</Accessories>
 				
 				<RentalPeriod>
@@ -100,7 +124,7 @@ export function SchedulingDetails() {
 					
 					<DateInfo>
 						<DateTitle>DE</DateTitle>
-						<DateValue>20/10/2021</DateValue>
+						<DateValue>{rentalPeriod.start}</DateValue>
 					</DateInfo>
 
 					<Feather 
@@ -111,15 +135,15 @@ export function SchedulingDetails() {
 					
 					<DateInfo>
 						<DateTitle>ATÉ</DateTitle>
-						<DateValue>30/10/2021</DateValue>
+						<DateValue>{rentalPeriod.end}</DateValue>
 					</DateInfo>
 				</RentalPeriod>
 
 				<RentalPrice>
 					<RentalPriceLabel>TOTAL</RentalPriceLabel>
 					<RentalPriceDetails>
-						<RentalPriceQuota>R$ 580 x3 diárias</RentalPriceQuota>
-						<RentalPriceTotal>R$ 2.900</RentalPriceTotal>
+						<RentalPriceQuota>{`R$ ${car.rent.price} x${dates.length} diárias`}</RentalPriceQuota>
+						<RentalPriceTotal>{rentalTotal}</RentalPriceTotal>
 					</RentalPriceDetails>
 				</RentalPrice>
 			</Content>
