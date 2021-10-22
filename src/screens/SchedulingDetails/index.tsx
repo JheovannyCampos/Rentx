@@ -50,10 +50,15 @@ export function SchedulingDetails() {
 		navigation.navigate("SchedulingComplete");
 	}
 	const theme = useTheme();
+
+	function handleBack(){
+		navigation.goBack();
+	}
+
 	return (
 		<Container>
 			<Header>
-				<BackButton onPress={() =>{}}/>
+				<BackButton onPress={handleBack}/>
 			</Header>
 
 			<CarImages>
@@ -65,7 +70,7 @@ export function SchedulingDetails() {
 			<Content>
 				<Details>
 					<Description>
-						<Brand>Lamborghini</Brand>
+						<Brand>Lambo</Brand>
 						<Name>Huracan</Name>
 					</Description>
 
