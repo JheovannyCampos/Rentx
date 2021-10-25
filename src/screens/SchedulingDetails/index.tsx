@@ -39,6 +39,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { CarDTO } from '../../dtos/CarDTO';
 import { getPlatformDate } from '../../utils/getPlataformDate';
 import { format } from 'date-fns';
+import api from '../../services/api';
+import { Alert } from 'react-native';
 
 interface Params {
 	car: CarDTO;
@@ -51,6 +53,8 @@ interface RentalPeriod{
 }
 
 export function SchedulingDetails() {
+	const [loading, setLoading] = useState()
+
 	const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>({} as RentalPeriod);
 
 	const navigation:any = useNavigation();
@@ -60,9 +64,32 @@ export function SchedulingDetails() {
 
 	const rentalTotal = Number(dates.length * car.rent.price)
 
-    function handleConfirmRental(){
-		navigation.navigate("SchedulingComplete");
+    async function handleConfirmRental(){
+		const schedulesByCar:any = await api.get(`/schedules_bycars/${car.id}`);
+
+		const unavailable_dates = [
+			...schedulesByCar.data.unavailable_dates,
+			...dates,
+		];
+
+		await api.post('schedules_byuser', {
+			user_id: 1,
+			car,
+			startDate: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+			endDate: format(getPlatformDate(new Date(dates[dates.length - 1])), 'dd/MM/yyyy')
+		})
+
+		api.put(`/schedules_bycars/${car.id}`, {
+			id: car.id,
+			unavailable_dates
+		})
+		.then(() => navigation.navigate("SchedulingComplete"))
+		.catch(() => {
+			setLoading(false);
+			Alert.alert("Não foi possível realizar o agendamento")
+		})
 	}
+
 	const theme = useTheme();
 
 	function handleBack(){
@@ -97,7 +124,7 @@ export function SchedulingDetails() {
 
 					<Rent>
 						<Period>{car.rent.period}</Period>
-						<Price>{car.rent.price}</Price>
+						<Price>R$ {car.rent.price}</Price>
 					</Rent>
 				</Details>
 
@@ -143,7 +170,7 @@ export function SchedulingDetails() {
 					<RentalPriceLabel>TOTAL</RentalPriceLabel>
 					<RentalPriceDetails>
 						<RentalPriceQuota>{`R$ ${car.rent.price} x${dates.length} diárias`}</RentalPriceQuota>
-						<RentalPriceTotal>{rentalTotal}</RentalPriceTotal>
+						<RentalPriceTotal>R$ {rentalTotal}</RentalPriceTotal>
 					</RentalPriceDetails>
 				</RentalPrice>
 			</Content>
@@ -152,7 +179,9 @@ export function SchedulingDetails() {
 				<Button 
 					title="Alugar agora" 
 					color={theme.colors.success}
-					onPress={handleConfirmRental} 
+					onPress={handleConfirmRental}
+					enabled={!loading}
+					loading={loading}
 				/>
 			</Footer>
 
