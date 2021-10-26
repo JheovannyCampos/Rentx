@@ -18,13 +18,17 @@ import {
 
 interface Props extends RectButtonProps{
     data: CarDTO;
+    onPress?: () => void;
 }
 
-export function Car({data, ...rest}: Props) {
+export function Car({data, onPress, ...rest}: Props) {
     const MotorIcon = getAccessoryIcon(data.fuel_type);
 
     return (
-        <Container {...rest}>
+        <Container 
+            {...rest}
+            onPress={onPress}
+        >
             <Details>
                 <Brand>{data.brand}</Brand>
                 <Name>{data.name}</Name>

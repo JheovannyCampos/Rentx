@@ -33,11 +33,19 @@ interface CarProps{
     endDate: string;
 }
 
+interface Params {
+	car: CarDTO;
+	dates: string[];
+}
+
 export function MyCars(){
     const [cars, setCars] = useState<CarProps[]>([])
     const [loading, setLoading] = useState(true)
 
     const theme = useTheme();
+
+    // const route = useRoute();
+    //const { car } = route.params as Params;
 
     const navigation:any = useNavigation();
     function handleBack(){
@@ -57,6 +65,7 @@ export function MyCars(){
         }
         fetchCars();
     },[])
+
 
   return (
     <Container>
@@ -90,7 +99,9 @@ export function MyCars(){
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
                         <CarWrapper>
-                            <Car data={item.car} />
+                            <Car 
+                                data={item.car}
+                            />
                             <CarFooter>
                                 <CarFooterTitle>Período</CarFooterTitle>
                                 <CarFooterPeriod>

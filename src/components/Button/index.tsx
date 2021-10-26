@@ -23,7 +23,7 @@ export function Button({title, color, onPress, enabled = true, loading = false}:
       color={color ? color : theme.colors.main} 
       onPress={onPress}
       enabled={enabled}
-      style={{ opacity: !enabled ? .5 : 1 }}
+      style={{ opacity: (enabled === false || loading === true) ? .5 : 1 }}
     >
       { 
         loading 

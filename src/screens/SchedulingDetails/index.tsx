@@ -53,7 +53,7 @@ interface RentalPeriod{
 }
 
 export function SchedulingDetails() {
-	const [loading, setLoading] = useState()
+	const [loading, setLoading] = useState(false)
 
 	const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>({} as RentalPeriod);
 
@@ -65,12 +65,15 @@ export function SchedulingDetails() {
 	const rentalTotal = Number(dates.length * car.rent.price)
 
     async function handleConfirmRental(){
+		setLoading(true);
 		const schedulesByCar:any = await api.get(`/schedules_bycars/${car.id}`);
 
 		const unavailable_dates = [
 			...schedulesByCar.data.unavailable_dates,
 			...dates,
 		];
+
+
 
 		await api.post('schedules_byuser', {
 			user_id: 1,
@@ -188,3 +191,5 @@ export function SchedulingDetails() {
 		</Container>
 	);
 }
+
+
