@@ -342,7 +342,10 @@
       "unavailable_dates": [
         "2021-06-19",
         "2021-06-20",
-        "2021-06-21"
+        "2021-06-21",
+        "2021-10-29",
+        "2021-10-30",
+        "2021-10-31"
       ]
     },
     {
@@ -358,6 +361,8 @@
         "2021-06-18",
         "2021-06-19",
         "2021-10-29",
+        "2021-10-30",
+        "2021-10-31",
         "2021-10-30",
         "2021-10-31"
       ]
@@ -378,6 +383,103 @@
     }
   ],
   "schedules_byuser": [
-
+    {
+      "user_id": 1,
+      "car": {
+        "id": "49983f6c-a46a-4dfd-a86e-425b8c72e086",
+        "brand": "Lamborghini",
+        "name": "Huracan",
+        "about": "Este é automóvel desportivo. Surgiu do lendário touro de lide indultado na praça Real Maestranza de Sevilla. É um belíssimo carro para quem gosta de acelerar.",
+        "rent": {
+          "period": "Ao dia",
+          "price": 120
+        },
+        "fuel_type": "electric_motor",
+        "thumbnail": "https://storage.googleapis.com/golden-wind/ignite/react-native/thumbnails/4.png",
+        "accessories": [
+          {
+            "type": "speed",
+            "name": "380km/h"
+          },
+          {
+            "type": "acceleration",
+            "name": "3.2s"
+          },
+          {
+            "type": "turning_diameter",
+            "name": "800 HP"
+          },
+          {
+            "type": "electric_motor",
+            "name": "Elétrico"
+          },
+          {
+            "type": "exchange",
+            "name": "Auto"
+          },
+          {
+            "type": "seats",
+            "name": "2 pessoas"
+          }
+        ],
+        "photos": [
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/9.png",
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/10.png",
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/11.png"
+        ]
+      },
+      "startDate": "29/10/2021",
+      "endDate": "31/10/2021",
+      "id": 1
+    },
+    {
+      "user_id": 1,
+      "car": {
+        "id": "508e7193-0078-4615-9071-920b59038fda",
+        "brand": "volvo",
+        "name": "XC40",
+        "about": "A Poderosa Combinação de um Motor Elétrico de Alto Desempenho e um Motor a Combustão. Compacto e Inovador. Com Design Expressivo, Tecnologias Intuitivas e Estilo Urbano.",
+        "rent": {
+          "period": "Ao dia",
+          "price": 120
+        },
+        "fuel_type": "gasoline_motor",
+        "thumbnail": "https://storage.googleapis.com/golden-wind/ignite/react-native/thumbnails/5.png",
+        "accessories": [
+          {
+            "type": "speed",
+            "name": "180km/h"
+          },
+          {
+            "type": "acceleration",
+            "name": "1.5s"
+          },
+          {
+            "type": "turning_diameter",
+            "name": "600 HP"
+          },
+          {
+            "type": "gasoline_motor",
+            "name": "Gasolina"
+          },
+          {
+            "type": "exchange",
+            "name": "Auto"
+          },
+          {
+            "type": "seats",
+            "name": "5 pessoas"
+          }
+        ],
+        "photos": [
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/12.png",
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/13.png",
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/14.png"
+        ]
+      },
+      "startDate": "30/10/2021",
+      "endDate": "31/10/2021",
+      "id": 2
+    }
   ]
 }
