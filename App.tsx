@@ -1,7 +1,5 @@
 import React from "react";
 
-import 'react-native-gesture-handler';
-
 import {
   useFonts,
   Inter_400Regular,
