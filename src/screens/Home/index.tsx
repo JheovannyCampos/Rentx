@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons'
 import Logo from '../../assets/logo.svg';
 import api from '../../services/api'
 import { Car } from '../../components/Car';
-import { Load } from '../../components/Load'
+import { LoadAnimation } from '../../components/LoadAnimation'
 
 import { CarDTO } from '../../dtos/CarDTO';
 
@@ -117,7 +117,7 @@ export function Home() {
 					}
 				</HeaderContent>
 			</Header>
-			{ loading ? <Load /> : 
+			{ loading ? <LoadAnimation /> : 
 			<CarList 
 				data={cars}
 				keyExtractor={item => item.id}

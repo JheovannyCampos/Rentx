@@ -12,7 +12,7 @@ interface Props {
     color?: string;
     onPress: () => void;
     enabled?: boolean;
-    loading: boolean
+    loading?: boolean
 }
 
 export function Button({title, color, onPress, enabled = true, loading = false}: Props) {

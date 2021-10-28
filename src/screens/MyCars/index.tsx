@@ -5,7 +5,7 @@ import { CarDTO } from '../../dtos/CarDTO';
 import { AntDesign } from '@expo/vector-icons'
 import api from '../../services/api';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Load } from '../../components/Load'
+import { LoadAnimation } from '../../components/LoadAnimation';
 
 import {
   Container,
@@ -86,7 +86,7 @@ export function MyCars(){
                 </Title>
                 <SubTitle> Conforto, segurança e praticidade. </SubTitle>
 			</Header>
-            { loading ? <Load /> :
+            { loading ? <LoadAnimation /> :
             <Content>
                 <Appointment>
                     <AppointmentTitle>Reservas realizadas</AppointmentTitle>
