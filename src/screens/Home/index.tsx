@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState }  from 'react';
-import { StatusBar, StyleSheet } from 'react-native'
+import { StatusBar, StyleSheet, BackHandler } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import Animated, {
@@ -90,7 +90,11 @@ export function Home() {
 		fetchCars();
 	},[]);
 
-
+	useEffect(() => {
+		BackHandler.addEventListener("hardwareBackPress", () => {
+			return true;
+		})
+	}, [])
 
 	return (
 		<Container>
@@ -105,9 +109,12 @@ export function Home() {
 						width={RFValue(108)}
 						height={RFValue(12)}
 					/>
-					<TotalCars>
-						Total de {cars.length} Carros
-					</TotalCars>
+					{	
+						!loading &&
+						<TotalCars>
+							Total de {cars.length} Carros
+						</TotalCars>
+					}
 				</HeaderContent>
 			</Header>
 			{ loading ? <Load /> : 
